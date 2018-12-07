@@ -69,12 +69,16 @@ def hotelAdd():
 
         # If an image was uploaded, update the data to point to the new image.
         # [START image_url]
-        image_url = upload_image_file(request.files.get('image'))
+        images = request.files.getlist('image[]')
+        image_url = []
+        for image in images:
+            image_url.append(upload_image_file(image))
+        #image_url = upload_image_file(request.files.get('image'))
         # [END image_url]
 
         # [START image_url2]
         if image_url:
-            data['imageUrl'] = image_url
+            data['imageUrl'] = ','.join(image_url)
         # [END image_url2]
 
         hotel = get_model().hotelCreate(data)

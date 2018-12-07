@@ -46,10 +46,11 @@ class Hotel(db.Model):
     state = db.Column(db.String(255))
     address = db.Column(db.String(255))
     zip_code = db.Column(db.String(255))
-    imageUrl = db.Column(db.String(255))
+    imageUrl = db.Column(db.String(999))
     amenities = db.Column(db.String(999))
     createdBy = db.Column(db.String(255))
     createdById = db.Column(db.String(255))
+    images = []
 
     def __repr__(self):
         return "<Hotel(name='%s', id=%s)" % (self.name, self.id)
