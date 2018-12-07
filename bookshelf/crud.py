@@ -91,7 +91,7 @@ def hotelAdd():
 @crud.route('/customer/add', methods=['GET', 'POST'])
 def customerAdd():
     if request.method == 'POST':
-        data = request.form.to_dict(flat=True)
+        data = request.form.to_dict(flat=True) # pulls data from formCostumer.html to dictionary datatype
 
         # If an image was uploaded, update the data to point to the new image.
         # [START image_url]
@@ -100,14 +100,14 @@ def customerAdd():
 
         # [START image_url2]
         if image_url:
-            data['imageUrl'] = image_url
+            data['imageUrl'] = image_url # if image supplied, add to costumer object
         # [END image_url2]
 
-        customer = get_model().customerCreate(data)
+        customer = get_model().customerCreate(data) #calls costumerCreate instance from m_cloudsql, costumer class also in m_cloudsql
 
         return redirect(url_for('.view', id=customer['id']))
 
-    return render_template("form.html", action="Add", customer={})
+    return render_template("formCostumer.html", action="Add", customer={}) # passed to formCostumer.html
 
 
 @crud.route('/hotel/<id>/edit', methods=['GET', 'POST'])
@@ -130,22 +130,22 @@ def hotelEdit(id):
 
 @crud.route('/customer/<id>/edit', methods=['GET', 'POST'])
 def customerEdit(id):
-    hotel = get_model().read(id)
+    costumer = get_model().read(id)   #CHANGED HOTEL TO COSTUMER
 
-    if request.method == 'POST':
-        data = request.form.to_dict(flat=True)
+    if request.method == 'POST':                
+        data = request.form.to_dict(flat=True)  
 
         image_url = upload_image_file(request.files.get('image'))
 
         if image_url:
             data['imageUrl'] = image_url
 
-        hotel = get_model().customerUpdate(data, id)
+        costumer = get_model().customerUpdate(data, id)  #passed to m_cloudsql of costumer object and id, retrieves from db abd assigns to costumer
+        #HOTEL TO COSTUMER ABOVE CHANGED
+        return redirect(url_for('.view', id=customer['id'])) #??
 
-        return redirect(url_for('.view', id=customer['id']))
-
-    return render_template("form.html", action="Edit", customer=customer)
-
+    return render_template("Costumerform.html", action="Edit", customer=customer)   #calls template with action edit, and costumer object also passed
+                        #CHANGED FORM TO COSTUMER FORM
 
 @crud.route('/hotel/<id>/delete')
 def hotelDelete(id):
