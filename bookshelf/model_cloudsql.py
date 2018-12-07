@@ -99,7 +99,7 @@ def hotelRead(id):
     return from_sql(result)
 
 def customerRead(id):
-    result = Customer.query.get(id)
+    result = Customer.query.get(id) 
     if not result:
         return None
     return from_sql(result)
@@ -114,7 +114,7 @@ def hotelCreate(data):
     return from_sql(hotel)
 
 def customerCreate(data):
-    customer = Customer(**data)
+    customer = Customer(**data) #costumer object is assignment class from Costumer(db.model)
     db.session.add(customer)
     db.session.commit()
     return from_sql(customer)
