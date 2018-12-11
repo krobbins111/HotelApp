@@ -56,6 +56,23 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
         An internal error occurred: <pre>{}</pre>
         See logs for full stacktrace.
         """.format(e), 500
+    
+    @app.context_processor
+    def processorDef():
+        def format_pics(pics):
+            return pics.split(',')[0]
+        return dict(format_pics=format_pics)
+    
+    from .model_cloudsql import hotelSchema, customerSchema, db
+    from flask_graphql import GraphQLView
+
+    app.add_url_rule('/graphql/hotels', view_func=GraphQLView.as_view('graphqlHotel', schema=hotelSchema, graphiql=True, context={'session': db.session}))
+    app.add_url_rule('/graphql/customers', view_func=GraphQLView.as_view('graphqlCustomer', schema=customerSchema, graphiql=True, context={'session': db.session}))
+
+    @app.teardown_appcontext
+    def shutdown_session(exception=None):
+        db.session.remove()
+
 
     return app
 

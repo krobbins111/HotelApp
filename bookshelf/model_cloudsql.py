@@ -14,6 +14,8 @@
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from graphene_sqlalchemy import SQLAlchemyObjectType
+import graphene
 
 
 builtin_list = list
@@ -50,10 +52,23 @@ class Hotel(db.Model):
     amenities = db.Column(db.String(999))
     createdBy = db.Column(db.String(255))
     createdById = db.Column(db.String(255))
-    images = []
 
     def __repr__(self):
         return "<Hotel(name='%s', id=%s)" % (self.name, self.id)
+
+class HotelAPI(SQLAlchemyObjectType):
+    class Meta:
+        model = Hotel
+        only_fields = ("id", "name", "address", "city", "state", "zip_code")
+
+class hotelQuery(graphene.ObjectType):
+    users = graphene.List(HotelAPI)
+
+    def resolve_users(self, info):
+        query = HotelAPI.get_query(info)
+        return query.all()
+
+hotelSchema = graphene.Schema(query=hotelQuery)
 
 class Customer(db.Model):
     __tablename__ = 'customers'
@@ -66,6 +81,20 @@ class Customer(db.Model):
 
     def __repr__(self):
         return "<Customer(lname='%s', fname='%s'   id=%s)" % (self.lname, self.fname, self.id)
+
+class CustomerAPI(SQLAlchemyObjectType):
+    class Meta:
+        model = Customer
+        only_fields = ("id", "fname", "lname" ,"email")
+
+class customerQuery(graphene.ObjectType):
+    users = graphene.List(CustomerAPI)
+
+    def resolve_users(self, info):
+        query = CustomerAPI.get_query(info)
+        return query.all()
+
+customerSchema = graphene.Schema(query=customerQuery)
 # [END model]
 
 
@@ -163,3 +192,4 @@ def _create_database():
 
 if __name__ == '__main__':
     _create_database()
+    

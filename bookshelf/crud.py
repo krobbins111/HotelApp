@@ -14,7 +14,7 @@
 
 from bookshelf import get_model, storage
 from flask import Blueprint, current_app, redirect, render_template, request, \
-    url_for
+    url_for, flash
 
 
 crud = Blueprint('crud', __name__)
@@ -59,7 +59,7 @@ def list():
 @crud.route('/hotel/<id>')
 def view(id):
     hotel = get_model().hotelRead(id)
-    return render_template("view.html", hotel=hotel)
+    return render_template("view.html", hotel=hotel, pics=hotel['imageUrl'].split(','))
 
 
 @crud.route('/hotel/add', methods=['GET', 'POST'])
@@ -71,8 +71,9 @@ def hotelAdd():
         # [START image_url]
         images = request.files.getlist('image[]')
         image_url = []
-        for image in images:
-            image_url.append(upload_image_file(image))
+        if images:
+            for image in images:
+                image_url.append(upload_image_file(image))
         #image_url = upload_image_file(request.files.get('image'))
         # [END image_url]
 
@@ -104,8 +105,8 @@ def customerAdd():
         # [END image_url2]
 
         customer = get_model().customerCreate(data) #calls costumerCreate instance from m_cloudsql, costumer class also in m_cloudsql
-
-        return redirect(url_for('.view', id=customer['id']))
+        flash(data['fname'] + ' was added to the customer database')
+        return redirect(url_for('.list'))
 
     return render_template("formCostumer.html", action="Add", customer={}) # passed to formCostumer.html
 
