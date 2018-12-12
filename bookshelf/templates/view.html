@@ -18,14 +18,17 @@
 
 {% block content %}
 
-<div style="background-color:lightseagreen">
+<div>
   <div style="display:inline-block">
-    <h3 style="font-family:Arial, Helvetica, sans-serif"><b>{{hotel.name}} in {{hotel.city}}, {{hotel.state}}</b></h3>
+    <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:4vw"><b>{{hotel.name}} in {{hotel.city}}, {{hotel.state}}</b></h3>
   </div>
-  <div style="display:inline-blocl;float:right">
-    <img src={{pics[0]}}>
+  <div>
+    <div>
+      <img src={{pics[0]}} width="250" height="200" style="float:right">
+      <br clear="left">
+      <p style="background-color:steelblue; font-size:1vw;"><b><strong>{{hotel.description}}</strong></b></p>
+    </div>
   </div>
-
   <br>
   <br>
 
@@ -39,24 +42,20 @@
       Delete Hotel
     </a>
   </div>
-</div>
-
-<div class="media">
-  <div class="media-left">
+  <div>
+        <h4 class="hotel-title">
+            <a href={{hotel.website}} class="btn btn-success">Make a Booking Now</a>
+        </h4>
   </div>
-  <div class="media-body">
-    <h4 class="hotel-title">
-      {{hotel.name}}
-    </h4>
-    <h5 class="hotel-author">From {{hotel.city|default('Unknown', True)}}</h5>
-  </div>
-</div>
+</div> 
+<br>
+<br>
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     {% for pic in pics %}
-    <div class="item{% if loop.index == 1 %} active{% endif %}">
-      <img src="{{pic}}" class="img-responsive">
+    <div class="item{% if loop.index == 1 %} active{% endif %}" style="text-align:center">
+      <img src="{{pic}}" class="img-responsive" width="75%" height="75%" style="display: inline-block">
     </div>
 
     {% endfor %}
@@ -71,6 +70,19 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+{% set amenity = hotel.amenities %}
+<h4 style="font-size:4vw">Amenities</h4>
+<ul>
+  <li style="background-color:steelblue; font-size:2vw">{{format_str(amenity, 0) | default('', True)}}</li>
+  <br>
+  <br>
+  <li style="background-color:steelblue; font-size:2vw">{{format_str(amenity, 1) | default('', True)}}</li>
+  <br>
+  <br>
+  <li style="background-color:steelblue; font-size:2vw">{{format_str(amenity, 2) | default('', True)}}</li>
+  <br>
+  <br>
+</ul>
   
 
 <!--{% for pic in pics %}

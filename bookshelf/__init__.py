@@ -62,6 +62,12 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
         def format_pics(pics):
             return pics.split(',')[0]
         return dict(format_pics=format_pics)
+
+    @app.context_processor
+    def processorDef():
+        def format_str(string1, index):
+            return string1.split(',')[index]
+        return dict(format_str=format_str)
     
     from .model_cloudsql import hotelSchema, customerSchema, db
     from flask_graphql import GraphQLView

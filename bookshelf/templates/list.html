@@ -40,14 +40,14 @@
 
 {% for hotel in hotels %}
 {% set url = hotel.imageUrl%}
-{% set image = format_pics(url) %}
+
 <div class="media">
   <a href="/hotels/hotel/{{hotel.id}}">
     <div class="media-left">
-      <img src={{format_pics(url)}} width="450" height="350">    
+      <img src={{format_str(url,0)}} width="450" height="350">    
     </div>
     <div class="media-body">
-      <h4 class="btn btn-success">{{hotel.name}}<br>{{hotel.address}}<br>{{hotel.city}}, {{hotel.state}}<br>{{hotel.zip_code}}</h4>
+      <h4 class="btn btn-success">{{hotel.name}}<br>{{hotel.address}}<br>{{hotel.city}}, {{hotel.state}}</h4>
     </div>
   </a>
 </div>
