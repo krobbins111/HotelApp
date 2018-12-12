@@ -18,47 +18,48 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3 style="color: #5cb85c"><strong>{{action}} Hotel</strong></h3>
-
+<h3 class="btn" style="background-color: steelblue; color: white; font-size: 2vw"><strong>{{action}} Hotel</strong></h3>
+<br>
+<br>
 <form method="POST" enctype="multipart/form-data">
 
   <div class="form-group">
-    <label for="name" style="background-color: #5cb85c; color: white">Name</label>
+    <label for="name" style="background-color: steelblue; color: white">Name</label>
     <input type="text" name="name" id="name" value="{{hotel.name}}" class="form-control"/>
   </div>
 
   <div class="form-group">
-      <label for="address" style="background-color: #5cb85c; color: white">Street Address</label>
+      <label for="address" style="background-color: steelblue; color: white">Street Address</label>
       <input type="text" name="address" id="address" value="{{hotel.address}}" class="form-control"/>
   </div>
 
   <div class="form-group">
-    <label for="city" style="background-color: #5cb85c; color: white">City</label>
+    <label for="city" style="background-color: steelblue; color: white">City</label>
     <input type="text" name="city" id="city" value="{{hotel.city}}" class="form-control"/>
   </div>
 
   <div class="form-group">
-      <label for="state" style="background-color: #5cb85c; color: white">State</label>
+      <label for="state" style="background-color: steelblue; color: white">State</label>
       <input type="text" name="state" id="state" value="{{hotel.state}}" class="form-control"/>
   </div>
 
   <div class="form-group">
-    <label for="website" style="background-color: #5cb85c; color: white">Website</label>
+    <label for="website" style="background-color: steelblue; color: white">Website</label>
     <input type="text" name="website" id="website" value="{{hotel.website}}" class="form-control"/>
   </div>
 
   <div class="form-group">
-      <label for="amenities" style="background-color: #5cb85c; color: white">Amenities (list separated by commas)</label>
+      <label for="amenities" style="background-color: steelblue; color: white">Amenities (list separated by commas)</label>
       <input type="text" name="amenities" id="amenities" value="{{hotel.amenities}}" class="form-control"/>
   </div>
 
   <div class="form-group">
-      <label for="description" style="background-color: #5cb85c; color: white">Description</label>
+      <label for="description" style="background-color: steelblue; color: white">Description</label>
       <input type="text" name="description" id="description" value="{{hotel.description}}" class="form-control"/>
   </div>
 
   <div class="form-group">
-    <label for="image" style="background-color: #5cb85c; color: white">Hotel Images (1 required)</label>
+    <label for="image" style="background-color: steelblue; color: white">Hotel Images (1 required)</label>
     <input type="file" name="image[]" id="image" class="form-control" multiple/>
   </div>
 
@@ -67,7 +68,7 @@
     <input type="text" name="imageUrl" id="imageUrl" value="{{hotel.imageUrl}}" class="form-control"/>
   </div>
 
-  <button type="submit" class="btn btn-success">Save</button>
+  <button type="submit" class="btn btn-success" style="background-color: steelblue; color: white; font-size: 1vw">Save</button>
 </form>
 
 {% endblock %}

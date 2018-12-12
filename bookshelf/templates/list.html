@@ -31,9 +31,9 @@
 
 {% block content %}
 
-<a href="/hotels/hotel" style="background-color: #5cb85c; color: white; size: 200 200"><h1 style="font-size:8vw"> <font color="0,0,255">Hotels</h1></a>
+<a href="/hotels/hotel" style="background-color: steelblue; color: white; size: 200 200"><h1 style="font-size:8vw"> <font color="0,0,255">Hotels</h1></a>
 <br>
-<a href="/hotels/hotel/add" class="btn btn-success">
+<a href="/hotels/hotel/add" class="btn btn-success" style="background-color: steelblue; color: white">
   <i class="glyphicon glyphicon-plus"></i>
   Add Hotel
 </a>
@@ -47,7 +47,7 @@
       <img src={{format_str(url,0)}} width="450" height="350">    
     </div>
     <div class="media-body">
-      <h4 class="btn btn-success">{{hotel.name}}<br>{{hotel.address}}<br>{{hotel.city}}, {{hotel.state}}</h4>
+      <h4 class="btn btn-success" style="background-color: steelblue; color: white">{{hotel.name}}<br>{{hotel.address}}<br>{{hotel.city}}, {{hotel.state}}</h4>
     </div>
   </a>
 </div>
